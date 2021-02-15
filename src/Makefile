@@ -1,10 +1,11 @@
 CC=gcc
-CFLAGS=-I. -lgpiod -pthread -Wall
+CFLAGS=-I. -Wall -O3
+LIBS=-lgpiod -pthread
 DEPS=libgpiod_pulsein.h
 OBJ=libgpiod_pulsein.o circular_buffer.o
 
 %.o: %.c $(DEPS)
-		$(CC) -c -O3 -o $@ $< $(CFLAGS)
+		$(CC) -c $(CFLAGS) -o $@ $<
 
 libgpiod_pulsein: $(OBJ)
-		$(CC) -o $@ $^ $(CFLAGS)
+		$(CC) -o $@ $^ $(LDFLAGS) $(CFLAGS) $(LIBS)
