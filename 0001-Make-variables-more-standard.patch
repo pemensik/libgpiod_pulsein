@@ -1,0 +1,31 @@
+From f4563e0acf9fe7b959ffc756a94d7a78f5960842 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Petr=20Men=C5=A1=C3=ADk?= <pihhan@gmail.com>
+Date: Mon, 15 Feb 2021 03:34:01 +0100
+Subject: [PATCH] Make variables more standard
+
+---
+ src/Makefile | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/src/Makefile b/src/Makefile
+index eb4f450..b8153ec 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -1,10 +1,11 @@
+ CC=gcc
+-CFLAGS=-I. -lgpiod -pthread -Wall
++CFLAGS=-I. -Wall -O3
++LIBS=-lgpiod -pthread
+ DEPS=libgpiod_pulsein.h
+ OBJ=libgpiod_pulsein.o circular_buffer.o
+ 
+ %.o: %.c $(DEPS)
+-		$(CC) -c -O3 -o $@ $< $(CFLAGS)
++		$(CC) -c $(CFLAGS) -o $@ $<
+ 
+ libgpiod_pulsein: $(OBJ)
+-		$(CC) -o $@ $^ $(CFLAGS)
++		$(CC) -o $@ $^ $(LDFLAGS) $(CFLAGS) $(LIBS)
+-- 
+2.29.2
+
